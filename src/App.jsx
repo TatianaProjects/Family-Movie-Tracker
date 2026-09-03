@@ -10,7 +10,7 @@ function App() {
   const [movieList, setMovieList] = useState([]);
 
   useEffect(() => {
-  axios.get('http://localhost:7000/movies')
+  axios.get('https://family-movie-tracker.onrender.com/movies')
     .then((response) => {
       setMovieList(response.data)
     })
@@ -20,7 +20,7 @@ function App() {
   }, [])
 
   const addMovie = (newMovie) => {
-  axios.post('http://localhost:7000/movies', newMovie)
+  axios.post('https://family-movie-tracker.onrender.com/movies', newMovie)
     .then((response) => {
       setMovieList([...movieList, response.data])
     })
@@ -36,7 +36,7 @@ function App() {
 
   const updateMovie = (updatedMovie) => {
     axios.put(
-      `http://localhost:7000/movies/${editingMovie._id}`,
+      `https://family-movie-tracker.onrender.com/movies/${editingMovie._id}`,
       updatedMovie
     )
       .then((response) => {
@@ -56,7 +56,7 @@ function App() {
   const toggleWatched = (id) => {
     const movie = movieList.find((movie) => movie._id === id)
 
-    axios.put(`http://localhost:7000/movies/${id}`, {
+    axios.put(`https://family-movie-tracker.onrender.com/movies/${id}`, {
       watched: !movie.watched
     })
       .then((response) => {
