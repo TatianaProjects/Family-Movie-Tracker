@@ -2,6 +2,10 @@
 
 A full-stack web application for keeping track of movies our family wants to watch and has already watched.
 
+## Live Demo
+
+[View Family Movie Tracker](https://familymovietracker.netlify.app/)
+
 ## Features
 
 * View all movies
