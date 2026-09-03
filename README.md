@@ -1,16 +1,75 @@
-# React + Vite
+# Family Movie Tracker 🎬
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A full-stack web application for keeping track of movies our family wants to watch and has already watched.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[View Family Movie Tracker](https://familymovietracker.netlify.app/)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* View all movies
+* Filter movies by **All**, **To Watch**, and **Watched**
+* Add a new movie
+* Edit movie details
+* Mark movies as watched or to watch
+* Delete movies
+* Store movie data in MongoDB
+* Responsive layout for desktop and mobile
 
-## Expanding the Oxlint configuration
+## Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Frontend
+
+* React
+* Vite
+* Axios
+* CSS
+
+### Backend
+
+* Node.js
+* Express
+* MongoDB
+* Mongoose
+* CORS
+* dotenv
+
+## Project Structure
+
+```text
+Family-Movie-Tracker/
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   └── package.json
+│
+├── src/
+│   ├── Components/
+│   │   ├── Movie.jsx
+│   │   └── MovieForm.jsx
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.jsx
+│
+├── public/
+├── .gitignore
+├── package.json
+└── README.md
+```
+
+## What I Practiced
+
+* Building a React application with reusable components
+* Using React Hooks (`useState`, `useEffect`)
+* Creating a REST API with Express
+* Connecting Node.js to MongoDB with Mongoose
+* Implementing CRUD operations
+* Connecting a React frontend to a backend API with Axios
+* Working with MongoDB document IDs
+* Managing environment variables
+* Creating a responsive layout
+* Using Git and GitHub
