@@ -84,7 +84,7 @@ function App() {
 })
 
 const deleteMovie = (id) => {
-  axios.delete(`http://localhost:7000/movies/${id}`)
+  axios.delete(`https://family-movie-tracker.onrender.com/movies/${id}`)
     .then(() => {
       setMovieList(
         movieList.filter((movie) => movie._id !== id)
