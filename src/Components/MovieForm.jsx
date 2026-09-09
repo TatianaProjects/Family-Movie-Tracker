@@ -2,17 +2,32 @@ import { useState, useEffect  } from 'react';
 
 const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
 
-    const [title, setTitle] = useState('')
-    const [year, setYear] = useState('')
-    const [genre, setGenre] = useState('')
-    const [rating, setRating] = useState('')
+    const initialState = {
+      title: '',
+      year: '',
+      genre: '',
+      rating: ''
+    }
+
+  const [formData, setFormData] = useState(initialState)
+
+  const handleChange = (e) => {
+  const { name, value } = e.target
+
+  setFormData({
+    ...formData,
+    [name]: value
+    })
+  }
 
   useEffect(() => {
   if (editingMovie) {
-    setTitle(editingMovie.title)
-    setYear(editingMovie.year)
-    setGenre(editingMovie.genre)
-    setRating(editingMovie.rating)
+    setFormData({
+        title: editingMovie.title,
+        year: editingMovie.year,
+        genre: editingMovie.genre,
+        rating: editingMovie.rating
+    })
   }
 }, [editingMovie])
 
@@ -20,10 +35,10 @@ const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
     e.preventDefault()
 
     const newMovie = {
-      title: title,
-      year: Number(year),
-      genre: genre,
-      rating: Number(rating),
+      title: formData.title,
+      year: Number(formData.year),
+      genre: formData.genre,
+      rating: Number(formData.rating),
       watched: editingMovie ? editingMovie.watched : false
     }
 
@@ -33,10 +48,7 @@ const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
     addMovie(newMovie)
     }
 
-    setTitle('')
-    setYear('')
-    setGenre('')
-    setRating('')
+   setFormData(initialState)
   }
 
   return (
@@ -44,31 +56,35 @@ const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
     <form className="movie-form" onSubmit={handleSubmit}>
       <input
         type="text"
+        name="title"
         placeholder="Movie title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={formData.title}
+        onChange={handleChange}
       />
 
       <input
         type="number"
+        name="year"
         placeholder="Year"
-        value={year}
-        onChange={(e) => setYear(e.target.value)}
+        value={formData.year}
+        onChange={handleChange}
       />
 
       <input
         type="text"
+        name="genre"
         placeholder="Genre"
-        value={genre}
-        onChange={(e) => setGenre(e.target.value)}
+        value={formData.genre}
+        onChange={handleChange}
       />
 
       <input
         type="number"
+        name="rating"
         step="0.1"
         placeholder="Rating"
-        value={rating}
-        onChange={(e) => setRating(e.target.value)}
+        value={formData.rating}
+        onChange={handleChange}
       />
 
       <button type="submit"> {editingMovie ? 'Update Movie' : 'Add Movie'}</button>
