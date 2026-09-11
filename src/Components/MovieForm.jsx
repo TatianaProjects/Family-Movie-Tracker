@@ -1,59 +1,91 @@
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
+import {
+  addMovie as addMovieApi,
+  updateMovie as updateMovieApi
+} from '../services/movieApi';
 
-    const initialState = {
-      title: '',
-      year: '',
-      genre: '',
-      rating: ''
-    }
+import {
+  addMovie,
+  updateMovie,
+  setEditingMovie
+} from '../store/movieSlice';
 
-  const [formData, setFormData] = useState(initialState)
+const initialState = {
+  title: '',
+  year: '',
+  genre: '',
+  rating: ''
+};
 
-  const handleChange = (e) => {
-  const { name, value } = e.target
+const MovieForm = () => {
 
-  setFormData({
-    ...formData,
-    [name]: value
-    })
-  }
+  const dispatch = useDispatch();
+
+  const editingMovie = useSelector(
+    (state) => state.movies.editingMovie
+  );
+
+  const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
-  if (editingMovie) {
-    setFormData({
+    if (editingMovie) {
+      setFormData({
         title: editingMovie.title,
         year: editingMovie.year,
         genre: editingMovie.genre,
         rating: editingMovie.rating
-    })
-  }
-}, [editingMovie])
+      });
+    } else {
+      setFormData(initialState);
+    }
+  }, [editingMovie]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const newMovie = {
+    const movieData = {
       title: formData.title,
       year: Number(formData.year),
       genre: formData.genre,
       rating: Number(formData.rating),
       watched: editingMovie ? editingMovie.watched : false
-    }
+    };
 
     if (editingMovie) {
-    updateMovie(newMovie)
+      updateMovieApi(editingMovie._id, movieData)
+        .then((response) => {
+          dispatch(updateMovie(response.data));
+          dispatch(setEditingMovie(null));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
-    addMovie(newMovie)
+      addMovieApi(movieData)
+        .then((response) => {
+          dispatch(addMovie(response.data));
+          setFormData(initialState);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-
-   setFormData(initialState)
-  }
+  };
 
   return (
-    
     <form className="movie-form" onSubmit={handleSubmit}>
+
       <input
         type="text"
         name="title"
@@ -87,10 +119,12 @@ const MovieForm = ({ addMovie, editingMovie, updateMovie }) => {
         onChange={handleChange}
       />
 
-      <button type="submit"> {editingMovie ? 'Update Movie' : 'Add Movie'}</button>
+      <button type="submit">
+        {editingMovie ? 'Update Movie' : 'Add Movie'}
+      </button>
+
     </form>
- 
-  )
-}
+  );
+};
 
 export default MovieForm;

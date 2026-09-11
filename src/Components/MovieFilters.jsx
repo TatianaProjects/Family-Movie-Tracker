@@ -1,31 +1,37 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../store/movieSlice';
 
+const MovieFilters = () => {
 
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.movies.filter);
 
-const MovieFilters = ({ filter, setFilter }) => {
   return (
     <div className="filters">
+
       <button
         className={filter === 'all' ? 'active' : ''}
-        onClick={() => setFilter('all')}
+        onClick={() => dispatch(setFilter('all'))}
       >
         All
       </button>
 
       <button
         className={filter === 'toWatch' ? 'active' : ''}
-        onClick={() => setFilter('toWatch')}
+        onClick={() => dispatch(setFilter('toWatch'))}
       >
         To Watch
       </button>
 
       <button
         className={filter === 'watched' ? 'active' : ''}
-        onClick={() => setFilter('watched')}
+        onClick={() => dispatch(setFilter('watched'))}
       >
         Watched
       </button>
+
     </div>
   )
 }
 
-export default MovieFilters
+export default MovieFilters;
